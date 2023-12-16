@@ -1,16 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-from typing import (
-    TYPE_CHECKING,
-    Literal,
-    Optional,
-    Protocol,
-    Self,
-    Type,
-    Union,
-    overload,
-)
+from typing import TYPE_CHECKING, Optional, Self, Type
 
 from async_arkon import errors
 
@@ -135,36 +126,3 @@ class RCONClient:
             raise errors.RequestIdMismatch(packet.request_id, response.request_id)
 
         return response
-
-
-class MixinProtocol(Protocol):
-    """Protocol for the RCON client Mixins."""
-
-    @overload
-    async def run(self: MixinProtocol, command: str, *arguments: str, raw: Literal[False]) -> str:
-        ...
-
-    @overload
-    async def run(self: MixinProtocol, command: str, *arguments: str, raw: Literal[True]) -> Packet:
-        ...
-
-    async def run(
-        self: MixinProtocol, command: str, *arguments: str, raw: bool = False
-    ) -> Union[Packet, str]:
-        """Build and execute and send an RCON command to the server.
-
-        Parameters
-        ----------
-        command: str
-            The command being sent to the RCON server.
-        *arguments: str
-            Extra arguments for the command.
-        raw: bool, False
-            Whether the response should be a raw Packet or the payload str.
-
-        Returns
-        -------
-        Union[Packet, str]
-            The raw response Packet or the str value of Packet.payload.
-        """
-        ...
