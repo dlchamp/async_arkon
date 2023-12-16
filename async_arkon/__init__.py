@@ -2,8 +2,9 @@ from types import TracebackType
 from typing import Literal, Optional, Self, Union, overload
 
 from . import errors
-from .types.abc import Packet, RCONClient
+from .types.base import RCONClient
 from .types.mixins import AdminMixin, ChatMixin, InfoMixin
+from .types.packet import Packet
 
 __all__ = ("Client",)
 
