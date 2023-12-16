@@ -106,6 +106,9 @@ class Client(RCONClient, AdminMixin, InfoMixin, ChatMixin):
         if self.logged_in:
             return
 
+        if not self._writer:
+            await self.connect()
+
         self.logged_in = True
 
         packet = Packet.from_login(self.password)
