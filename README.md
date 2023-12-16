@@ -20,7 +20,7 @@ import asyncio
 from async_arkon import Client
 
 host = "192.168.1.200"
-port = 27036
+port = 27015
 password = "my_super_secret_admin_password"
 
 
