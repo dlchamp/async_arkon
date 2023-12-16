@@ -1,0 +1,90 @@
+site_name: "async_arkon"
+site_description: "A simple async RCON library for Ark. Inspired by https://github.com/scottjones4k/ark_rcon"
+site_url: "https://dlchamp.github.io/async_arkon"
+repo_url: "https://github.com/dlchamp/async_arkon"
+repo_name: "dlchamp/async_arkon"
+site_dir: "site"
+copyright: '&copy; Copyright 2023-present, <a href="https://github.com/DLCHAMP">DLCHAMP'
+nav:
+  - Home:
+    - Overview: index.md
+    - License: license.md
+  - Code Reference: reference/
+
+  # - Examples: examples/
+  - Author's Site: https://dlchamp.com
+
+
+
+
+theme:
+  favicon: assets/favicon.svg
+  name: material
+  features:
+  - content.code.copy
+  - navigation.sections
+  - navigation.tabs
+  - navigation.top
+  - search.share
+  - search.suggest
+  font:
+    text: Roboto
+    code: Roboto Mono
+  palette:
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: black
+    accent: purple
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: black
+    accent: purple
+    toggle:
+      icon: material/weather-night
+      name: Switch to light mode
+
+
+markdown_extensions:
+  - pymdownx.superfences
+  - admonition
+  - attr_list
+  - md_in_html
+  - def_list
+  - toc:
+      permalink: true
+
+
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - minify:
+      minify_html: true
+
+  - gen-files:
+      scripts:
+      - docs/gen_raf_nav.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+        handlers:
+          python:
+            options:
+              docstring_style: numpy
+              docstring_section_style: list
+              docstring_options:
+                merge_init_into_class: true
+
+
+watch:
+  - src/async_arkon
+
+
+
+extra:
+  social:
+  - icon: fontawesome/brands/github
+    link: https://github.com/dlchamp
