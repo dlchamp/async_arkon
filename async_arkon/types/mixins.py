@@ -1,6 +1,6 @@
-from typing import List, Optional
+from typing import List, Literal, Optional, Protocol, Union, overload
 
-from .abc import MixinProtocol
+from .packet import Packet
 
 # from .message import Message
 from .player import Player
@@ -10,6 +10,37 @@ __all__ = (
     "ChatMixin",
     "InfoMixin",
 )
+
+
+class MixinProtocol(Protocol):
+    """Protocol for the RCON client Mixins."""
+
+    @overload
+    async def run(self, command: str, *arguments: str, raw: Literal[False]) -> str:
+        ...
+
+    @overload
+    async def run(self, command: str, *arguments: str, raw: Literal[True]) -> Packet:
+        ...
+
+    async def run(self, command: str, *arguments: str, raw: bool = False) -> Union[Packet, str]:
+        """Build and execute and send an RCON command to the server.
+
+        Parameters
+        ----------
+        command: str
+            The command being sent to the RCON server.
+        *arguments: str
+            Extra arguments for the command.
+        raw: bool, False
+            Whether the response should be a raw Packet or the payload str.
+
+        Returns
+        -------
+        Union[Packet, str]
+            The raw response Packet or the str value of Packet.payload.
+        """
+        ...
 
 
 class AdminMixin:
@@ -34,7 +65,7 @@ class ChatMixin:
 
         await self.run("serverchat", msg, raw=True)
 
-    # async def fetch_chat_buffer(self: MixinProtocol, limit: int = 50) -> None:
+    # async def fetch_chat_buffer(self, limit: int = 50) -> None:
     #     """Fetch up to 50 messages from the RCON server's buffer."""
     #     response = await self.run("getchat")
     #     print(response)
